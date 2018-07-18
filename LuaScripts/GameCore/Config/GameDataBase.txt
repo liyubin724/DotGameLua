@@ -1,5 +1,3 @@
-require("Logger")
-
 GameDataBase = {}
 GameDataBase.language = "zh"
 
@@ -9,7 +7,6 @@ GameDataBase.SheetLineBase.__index = function(t,k)
   if not summary then 
     return nil
   end
-  
   
   if summary.textFields then 
     for index=1,#(summary.textFields) do
@@ -72,7 +69,7 @@ GameDataBase.SheetLineBase.__index = function(t,k)
 end
 
 GameDataBase.SheetLineBase.__newindex = function(t,k,v)
-  Logger.LogError("attempt to update a read-only table")
+  DebugLogger.LogError("attempt to update a read-only table")
 end
 
 GameDataBase.SheetBase = {}
@@ -113,7 +110,7 @@ GameDataBase.SheetBase.__index = function(t,k)
 end
 
 GameDataBase.SheetBase.__newindex = function(t,k,v)
-  Logger.LogError("attempt to update a read-only table")
+  DebugLogger.LogError("attempt to update a read-only table")
 end
 
 function GameDataBase.SheetBase.GetCount(t)
@@ -122,7 +119,7 @@ end
 
 function GameDataBase.SheetBase.GetKeys(t)
   if t.count > GameDataBase.SheetBase.MaxForKeysAsWarning then 
-    Logger.LogWarning("The key is to much!!!")
+    DebugLogger.LogWarning("The key is to much!!!")
   end
   
   local keys = {}

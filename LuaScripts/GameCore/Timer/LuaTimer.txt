@@ -1,0 +1,37 @@
+--LuaTimer = Class(function(self)
+	--self.timerTask = {}
+--end)
+
+LuaTimer = {}
+LuaTimer.__index = LuaTimer
+
+function LuaTimer.Create()
+	local a = {}
+	a.timerTask = {}
+	setmetatable(a,LuaTimer)
+	return a
+end
+
+function LuaTimer:AddTimer(target,interval,total,startFun,intervalFun,endFun,userData)
+	local taskInfo = LuaTimerWheel.AddTimer(target,interval,total,startFun,intervalFun,endFun,userData)
+	table.insert(self.timerTask,taskInfo)
+end
+
+function LuaTimer:RemoveTimer(taskInfo)
+	for i=1,#(self.timerTask) do
+		if self.timerTask[i] == taskInfo then
+			LuaTimer.RemoveTimer(taskInfo)
+			table.remove(self.timerTask,i)
+			break
+		end
+	end
+end
+
+function LuaTimer:Clear()
+	for i = #(self.timerTask),1,-1 do
+		if self.timerTask[i] then 
+			LuaTimerWheel.RemoveTimer(self.timerTask[i]);
+			table.remove(self.timerTask,i)
+		end
+	end
+end
