@@ -1,0 +1,6 @@
+.project
+.buildPath
+.settings/
+
+*.bak
+*.temp
