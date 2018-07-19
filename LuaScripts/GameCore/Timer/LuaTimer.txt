@@ -13,14 +13,14 @@ function LuaTimer.Create()
 end
 
 function LuaTimer:AddTimer(target,interval,total,startFun,intervalFun,endFun,userData)
-	local taskInfo = LuaTimerWheel.AddTimer(target,interval,total,startFun,intervalFun,endFun,userData)
+	local taskInfo = LuaTimerWheel.AddTimer(self,target,interval,total,startFun,intervalFun,endFun,userData)
 	table.insert(self.timerTask,taskInfo)
 end
 
 function LuaTimer:RemoveTimer(taskInfo)
 	for i=1,#(self.timerTask) do
-		if self.timerTask[i] == taskInfo then
-			LuaTimer.RemoveTimer(taskInfo)
+		if self.timerTask[i]:ToString() == taskInfo:ToString() then
+			LuaTimerWheel.RemoveTimer(taskInfo)
 			table.remove(self.timerTask,i)
 			break
 		end
